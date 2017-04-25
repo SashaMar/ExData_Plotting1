@@ -1,5 +1,8 @@
 library(tidyr)
 
+# Opening a PNG Graphics Device
+png(filename = "Plot2.png")
+
 # Loading, subsetting and formating data
 plotdata <- read.table("household_power_consumption.txt", header = TRUE, sep = ";", na.strings = "?")
 plotdata <- subset(plotdata, Date == "1/2/2007" | Date == "2/2/2007", select = Date:Sub_metering_3)
@@ -10,3 +13,5 @@ plotdata$Date.Time <- strptime(plotdata$Date.Time, format = "%d/%m/%Y %H:%M:%S")
 plot(plotdata$Date.Time, plotdata$Global_active_power, type = "n", xlab = "", ylab = "Global Active Power (kilowatts)")
 with(plotdata, lines(Date.Time, Global_active_power, type = "l"))
 
+# Closing the graphics device
+dev.off()
